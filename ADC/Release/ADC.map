@@ -24,6 +24,12 @@ Archive member included to satisfy reference by file (symbol)
                               /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3x.o) (__fp_pscB)
 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_round.o)
                               /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3.o) (__fp_round)
+/usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o)
+                              ./main.o (__itoa_ncheck)
+/usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
+                              /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o) (__utoa_common)
+/usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(strrev.o)
+                              /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o) (strrev)
 
 Discarded input sections
 
@@ -36,6 +42,8 @@ Discarded input sections
                 0x0000000000000000       0x14 ./main.o
  .text._Z13analog_to_digf
                 0x0000000000000000       0x14 ./main.o
+ .text._Z11analog_readv
+                0x0000000000000000       0x1c ./main.o
  .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
  .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
@@ -107,6 +115,15 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_round.o)
  .text.avr-libc.fplib
                 0x0000000000000000       0x22 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_round.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(strrev.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(strrev.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(strrev.o)
 
 Memory Configuration
 
@@ -231,7 +248,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x15a
+.text           0x0000000000000000      0x1ec
  *(.vectors)
  .vectors       0x0000000000000000       0xe4 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
                 0x0000000000000000                __vectors
@@ -349,19 +366,29 @@ END GROUP
                 0x00000000000000fa       0x1a ./main.o
                 0x00000000000000fa                _Z9uart_initv
  .text._Z8adc_initv
-                0x0000000000000114        0xc ./main.o
+                0x0000000000000114       0x14 ./main.o
                 0x0000000000000114                _Z8adc_initv
- .text._Z11analog_readv
-                0x0000000000000120       0x1c ./main.o
-                0x0000000000000120                _Z11analog_readv
+ .text._Z7uart_txPc
+                0x0000000000000128       0x18 ./main.o
+                0x0000000000000128                _Z7uart_txPc
  .text.startup.main
-                0x000000000000013c       0x1a ./main.o
-                0x000000000000013c                main
-                0x0000000000000156                . = ALIGN (0x2)
+                0x0000000000000140       0x42 ./main.o
+                0x0000000000000140                main
+ .text.avr-libc
+                0x0000000000000182       0x14 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o)
+                0x0000000000000182                __itoa_ncheck
+ .text.avr-libc
+                0x0000000000000196       0x32 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
+                0x0000000000000196                __utoa_ncheck
+                0x0000000000000198                __utoa_common
+ .text.avr-libc
+                0x00000000000001c8       0x20 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(strrev.o)
+                0x00000000000001c8                strrev
+                0x00000000000001e8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000156        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
-                0x0000000000000156                exit
-                0x0000000000000156                _exit
+ .fini9         0x00000000000001e8        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
+                0x00000000000001e8                exit
+                0x00000000000001e8                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -380,11 +407,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000156        0x4 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
+ .fini0         0x00000000000001e8        0x4 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
  *(.fini0)
-                0x000000000000015a                _etext = .
+                0x00000000000001ec                _etext = .
 
-.data           0x0000000000800200        0x0 load address 0x000000000000015a
+.data           0x0000000000800200        0x0 load address 0x00000000000001ec
                 [!provide]                        PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -401,8 +428,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                        PROVIDE (__bss_end, .)
-                0x000000000000015a                __data_load_start = LOADADDR (.data)
-                0x000000000000015a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000001ec                __data_load_start = LOADADDR (.data)
+                0x00000000000001ec                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800200        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)
@@ -533,6 +560,7 @@ Symbol                                            File
 _Z11analog_readv                                  ./main.o
 _Z13analog_to_digf                                ./main.o
 _Z13dig_to_analogf                                ./main.o
+_Z7uart_txPc                                      ./main.o
 _Z8adc_initv                                      ./main.o
 _Z9uart_initv                                     ./main.o
 __FUSE_REGION_LENGTH__                            /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
@@ -562,12 +590,17 @@ __fp_zero                                         /usr/lib/gcc/avr/5.4.0/../../.
                                                   /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
 __heap_end                                        /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
 __init                                            /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
+__itoa_ncheck                                     /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o)
+                                                  ./main.o
 __mulsf3                                          /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3.o)
                                                   ./main.o
 __mulsf3_pse                                      /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3x.o)
 __mulsf3x                                         /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3x.o)
                                                   /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3.o)
 __stack                                           /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
+__utoa_common                                     /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
+                                                  /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(itoa_ncheck.o)
+__utoa_ncheck                                     /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
 __vector_1                                        /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
 __vector_10                                       /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
 __vector_11                                       /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
@@ -631,3 +664,5 @@ exit                                              /usr/lib/gcc/avr/5.4.0/avr6/li
                                                   /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
 main                                              ./main.o
                                                   /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
+strrev                                            /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(strrev.o)
+                                                  /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libc.a(utoa_ncheck.o)
