@@ -69,13 +69,11 @@ int debounce() {
 }
 
 ISR(INT4_vect) {
-	uint8_t oldSREG = SREG;
 	if (debounce()) {
 		uart_tx("Change LED\n");
 		if (!(PINE & (1 << PINE4))) led_state = 1;
 		else led_state = 0;
 	}
-	SREG = oldSREG;
 }
 
 int main(void) {
@@ -84,11 +82,9 @@ int main(void) {
 	clock_init();
 
 	DDRE &= ~(1 << DDE4);				// Set 0 to DDRE4 (PE4)
-//	PORTE = (1 << PE4);
-//	MCUCR &= ~(1 << PUD);
 	DDRH |= (1 << DDH5);				// Set 1 to DDRH5 (PH5)
 
-	EICRA &= (1 << ISC00);				// rising up and down, but doesnt work
+	EICRB = ~(1 << ISC41)|(1 << ISC40);				// rising up and down
 	EIMSK |= (1 << INT4);
 	sei();
 

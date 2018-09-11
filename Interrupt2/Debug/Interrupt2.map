@@ -186,7 +186,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x4de
+.text           0x0000000000000000      0x4be
  *(.vectors)
  .vectors       0x0000000000000000       0xe4 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
                 0x0000000000000000                __vectors
@@ -321,15 +321,15 @@ END GROUP
                 0x000000000000033a       0x62 ./main.o
                 0x000000000000033a                _Z8debouncev
  .text.__vector_5
-                0x000000000000039c       0xb6 ./main.o
+                0x000000000000039c       0x9e ./main.o
                 0x000000000000039c                __vector_5
- .text.main     0x0000000000000452       0x88 ./main.o
-                0x0000000000000452                main
-                0x00000000000004da                . = ALIGN (0x2)
+ .text.main     0x000000000000043a       0x80 ./main.o
+                0x000000000000043a                main
+                0x00000000000004ba                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000000000004da        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
-                0x00000000000004da                exit
-                0x00000000000004da                _exit
+ .fini9         0x00000000000004ba        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
+                0x00000000000004ba                exit
+                0x00000000000004ba                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -348,11 +348,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000000000004da        0x4 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
+ .fini0         0x00000000000004ba        0x4 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000000000004de                _etext = .
+                0x00000000000004be                _etext = .
 
-.data           0x0000000000800200        0xe load address 0x00000000000004de
+.data           0x0000000000800200        0xe load address 0x00000000000004be
                 0x0000000000800200                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -385,8 +385,8 @@ END GROUP
                 0x0000000000800216                overflow
  *(COMMON)
                 0x000000000080021a                PROVIDE (__bss_end, .)
-                0x00000000000004de                __data_load_start = LOADADDR (.data)
-                0x00000000000004ec                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000004be                __data_load_start = LOADADDR (.data)
+                0x00000000000004cc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x000000000080021a        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)
@@ -414,13 +414,13 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000      0x978
+.stab           0x0000000000000000      0x948
  *(.stab)
- .stab          0x0000000000000000      0x978 ./main.o
+ .stab          0x0000000000000000      0x948 ./main.o
 
-.stabstr        0x0000000000000000      0xff4
+.stabstr        0x0000000000000000      0xfe5
  *(.stabstr)
- .stabstr       0x0000000000000000      0xff4 ./main.o
+ .stabstr       0x0000000000000000      0xfe5 ./main.o
 
 .stab.excl
  *(.stab.excl)

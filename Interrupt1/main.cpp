@@ -70,12 +70,10 @@ int debounce() {
 }
 
 ISR(INT4_vect) {
-	uint8_t oldSREG = SREG;
 	if (debounce()) {
 		uart_tx("Change LED\n");
 		led_state = !led_state;
 	}
-	SREG = oldSREG;
 }
 
 int main(void) {
@@ -86,7 +84,7 @@ int main(void) {
 	DDRE &= ~(1 << DDE4);				// Set 0 to DDRE4 (PE4)
 	DDRH |= (1 << DDH5);				// Set 1 to DDRH5 (PH5)
 
-	EICRA = 0x00;
+	EICRB = 0x00;
 	EIMSK |= (1 << INT4);
 	sei();
 

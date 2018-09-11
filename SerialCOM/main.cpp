@@ -12,7 +12,7 @@ void uart_init() {
 
     // Set frame format: 8 data, 1 stop bit (00000110)
     UCSR0C = (1 << UCSZ00) | (1 << UCSZ01);
-
+}
 
 void uart_tx(unsigned char data) {
 
