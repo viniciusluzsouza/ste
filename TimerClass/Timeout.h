@@ -9,6 +9,8 @@
 #define TIMEOUT_H_
 #include <stdint.h>
 
+namespace Timeout {
+
 typedef void (*CALLBACK_t)(void);
 
 class Timeout {
@@ -19,6 +21,8 @@ public:
 	void config(uint32_t interval, CALLBACK_t callback);
 	void checkTimeout();
 	void callback();
+	void enable();
+	void disable();
 	bool event();
 
 private:
@@ -28,5 +32,7 @@ private:
 	uint32_t _counter;
 	uint32_t _interval;
 };
+
+}
 
 #endif /* TIMEOUT_H_ */

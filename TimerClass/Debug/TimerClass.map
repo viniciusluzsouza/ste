@@ -62,8 +62,10 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./Timeout.o
  .data          0x0000000000000000        0x0 ./Timeout.o
  .bss           0x0000000000000000        0x0 ./Timeout.o
- .text._ZN7TimeoutD2Ev
-                0x0000000000000000       0x1c ./Timeout.o
+ .text._ZN7Timeout7Timeout6enableEv
+                0x0000000000000000       0x26 ./Timeout.o
+ .text._ZN7Timeout7Timeout7disableEv
+                0x0000000000000000       0x24 ./Timeout.o
  .group         0x0000000000000000        0x8 ./Timer.o
  .group         0x0000000000000000        0x8 ./Timer.o
  .group         0x0000000000000000        0x8 ./Timer.o
@@ -473,7 +475,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0xd80
+.text           0x0000000000000000      0xdea
  *(.vectors)
  .vectors       0x0000000000000000       0xe4 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/crtatmega2560.o
                 0x0000000000000000                __vectors
@@ -590,116 +592,120 @@ END GROUP
                 0x0000000000000122                __vector_42
                 0x0000000000000124                . = ALIGN (0x2)
  *(.text.*)
- .text._ZN7TimeoutC2Ev
-                0x0000000000000124       0x1c ./Timeout.o
-                0x0000000000000124                _ZN7TimeoutC1Ev
-                0x0000000000000124                _ZN7TimeoutC2Ev
- .text._ZN7Timeout6configEmPFvvE
-                0x0000000000000140       0x7c ./Timeout.o
-                0x0000000000000140                _ZN7Timeout6configEmPFvvE
- .text._ZN7Timeout12checkTimeoutEv
-                0x00000000000001bc       0x7c ./Timeout.o
-                0x00000000000001bc                _ZN7Timeout12checkTimeoutEv
- .text._ZN7Timeout8callbackEv
-                0x0000000000000238       0x32 ./Timeout.o
-                0x0000000000000238                _ZN7Timeout8callbackEv
- .text._ZN7Timeout5eventEv
-                0x000000000000026a       0x22 ./Timeout.o
-                0x000000000000026a                _ZN7Timeout5eventEv
+ .text._ZN7Timeout7TimeoutC2Ev
+                0x0000000000000124       0x3a ./Timeout.o
+                0x0000000000000124                _ZN7Timeout7TimeoutC1Ev
+                0x0000000000000124                _ZN7Timeout7TimeoutC2Ev
+ .text._ZN7Timeout7TimeoutD2Ev
+                0x000000000000015e       0x1c ./Timeout.o
+                0x000000000000015e                _ZN7Timeout7TimeoutD2Ev
+                0x000000000000015e                _ZN7Timeout7TimeoutD1Ev
+ .text._ZN7Timeout7Timeout6configEmPFvvE
+                0x000000000000017a       0x66 ./Timeout.o
+                0x000000000000017a                _ZN7Timeout7Timeout6configEmPFvvE
+ .text._ZN7Timeout7Timeout12checkTimeoutEv
+                0x00000000000001e0       0x88 ./Timeout.o
+                0x00000000000001e0                _ZN7Timeout7Timeout12checkTimeoutEv
+ .text._ZN7Timeout7Timeout8callbackEv
+                0x0000000000000268       0x4a ./Timeout.o
+                0x0000000000000268                _ZN7Timeout7Timeout8callbackEv
+ .text._ZN7Timeout7Timeout5eventEv
+                0x00000000000002b2       0x22 ./Timeout.o
+                0x00000000000002b2                _ZN7Timeout7Timeout5eventEv
  .text._ZN5TimerC2Em
-                0x000000000000028c      0x2ee ./Timer.o
-                0x000000000000028c                _ZN5TimerC1Em
-                0x000000000000028c                _ZN5TimerC2Em
+                0x00000000000002d4      0x340 ./Timer.o
+                0x00000000000002d4                _ZN5TimerC1Em
+                0x00000000000002d4                _ZN5TimerC2Em
  .text.__vector_23
-                0x000000000000057a       0x64 ./Timer.o
-                0x000000000000057a                __vector_23
+                0x0000000000000614       0x64 ./Timer.o
+                0x0000000000000614                __vector_23
  .text._ZN5Timer15ovf_isr_handlerEv
-                0x00000000000005de      0x10e ./Timer.o
-                0x00000000000005de                _ZN5Timer15ovf_isr_handlerEv
+                0x0000000000000678      0x100 ./Timer.o
+                0x0000000000000678                _ZN5Timer15ovf_isr_handlerEv
  .text._ZN5Timer10addTimeoutEmPFvvE
-                0x00000000000006ec       0xc6 ./Timer.o
-                0x00000000000006ec                _ZN5Timer10addTimeoutEmPFvvE
+                0x0000000000000778       0xc6 ./Timer.o
+                0x0000000000000778                _ZN5Timer10addTimeoutEmPFvvE
  .text._ZN5Timer14timeoutManagerEv
-                0x00000000000007b2       0xd2 ./Timer.o
-                0x00000000000007b2                _ZN5Timer14timeoutManagerEv
+                0x000000000000083e       0xb0 ./Timer.o
+                0x000000000000083e                _ZN5Timer14timeoutManagerEv
  .text._ZN9SingletonI5TimerEC2Ev
-                0x0000000000000884       0x28 ./Timer.o
-                0x0000000000000884                _ZN9SingletonI5TimerEC1Ev
-                0x0000000000000884                _ZN9SingletonI5TimerEC2Ev
+                0x00000000000008ee       0x28 ./Timer.o
+                0x00000000000008ee                _ZN9SingletonI5TimerEC1Ev
+                0x00000000000008ee                _ZN9SingletonI5TimerEC2Ev
  .text._ZN9SingletonI5TimerE4selfEv
-                0x00000000000008ac       0x16 ./Timer.o
-                0x00000000000008ac                _ZN9SingletonI5TimerE4selfEv
+                0x0000000000000916       0x16 ./Timer.o
+                0x0000000000000916                _ZN9SingletonI5TimerE4selfEv
  .text._Z10toogle_ledv
-                0x00000000000008c2       0x4a ./main.o
-                0x00000000000008c2                _Z10toogle_ledv
- .text.main     0x000000000000090c      0x13c ./main.o
-                0x000000000000090c                main
+                0x000000000000092c       0x4a ./main.o
+                0x000000000000092c                _Z10toogle_ledv
+ .text.main     0x0000000000000976      0x13c ./main.o
+                0x0000000000000976                main
  .text.libgcc.div
-                0x0000000000000a48       0x44 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_udivmodsi4.o)
-                0x0000000000000a48                __udivmodsi4
+                0x0000000000000ab2       0x44 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_udivmodsi4.o)
+                0x0000000000000ab2                __udivmodsi4
  .text.libgcc.mul
-                0x0000000000000a8c       0x92 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_muldi3.o)
-                0x0000000000000a8c                __muldi3
+                0x0000000000000af6       0x92 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_muldi3.o)
+                0x0000000000000af6                __muldi3
  .text.libgcc.mul
-                0x0000000000000b1e       0x10 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_muldi3_6.o)
-                0x0000000000000b1e                __muldi3_6
- .text.libgcc   0x0000000000000b2e       0x18 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_adddi3_s8.o)
-                0x0000000000000b2e                __adddi3_s8
+                0x0000000000000b88       0x10 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_muldi3_6.o)
+                0x0000000000000b88                __muldi3_6
+ .text.libgcc   0x0000000000000b98       0x18 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_adddi3_s8.o)
+                0x0000000000000b98                __adddi3_s8
  .text.libgcc.mul
-                0x0000000000000b46       0x1e /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_umulhisi3.o)
-                0x0000000000000b46                __umulhisi3
+                0x0000000000000bb0       0x1e /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_umulhisi3.o)
+                0x0000000000000bb0                __umulhisi3
  .text.avr-libc.fplib
-                0x0000000000000b64        0x8 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(cmpsf2.o)
-                0x0000000000000b64                __lesf2
-                0x0000000000000b64                __nesf2
-                0x0000000000000b64                __eqsf2
-                0x0000000000000b64                __cmpsf2
-                0x0000000000000b64                __ltsf2
+                0x0000000000000bce        0x8 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(cmpsf2.o)
+                0x0000000000000bce                __lesf2
+                0x0000000000000bce                __nesf2
+                0x0000000000000bce                __eqsf2
+                0x0000000000000bce                __cmpsf2
+                0x0000000000000bce                __ltsf2
  .text.avr-libc.fplib
-                0x0000000000000b6c       0x58 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
-                0x0000000000000b6c                __fixunssfsi
+                0x0000000000000bd6       0x58 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+                0x0000000000000bd6                __fixunssfsi
  .text.avr-libc.fplib
-                0x0000000000000bc4       0x48 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_cmp.o)
-                0x0000000000000bc4                __fp_cmp
+                0x0000000000000c2e       0x48 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_cmp.o)
+                0x0000000000000c2e                __fp_cmp
  .text.avr-libc.fplib
-                0x0000000000000c0c       0x44 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_split3.o)
-                0x0000000000000c0c                __fp_split3
-                0x0000000000000c1c                __fp_splitA
+                0x0000000000000c76       0x44 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                0x0000000000000c76                __fp_split3
+                0x0000000000000c86                __fp_splitA
  .text.avr-libc.fplib
-                0x0000000000000c50        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_zero.o)
-                0x0000000000000c50                __fp_zero
-                0x0000000000000c52                __fp_szero
+                0x0000000000000cba        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                0x0000000000000cba                __fp_zero
+                0x0000000000000cbc                __fp_szero
  .text.avr-libc.fplib
-                0x0000000000000c5e        0x8 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(gesf2.o)
-                0x0000000000000c5e                __gtsf2
-                0x0000000000000c5e                __gesf2
+                0x0000000000000cc8        0x8 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(gesf2.o)
+                0x0000000000000cc8                __gtsf2
+                0x0000000000000cc8                __gesf2
  .text.avr-libc.fplib
-                0x0000000000000c66        0x4 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3.o)
-                0x0000000000000c66                __mulsf3
+                0x0000000000000cd0        0x4 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3.o)
+                0x0000000000000cd0                __mulsf3
  .text.avr-libc.fplib
-                0x0000000000000c6a       0xc2 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3x.o)
-                0x0000000000000c7e                __mulsf3x
-                0x0000000000000c82                __mulsf3_pse
+                0x0000000000000cd4       0xc2 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(mulsf3x.o)
+                0x0000000000000ce8                __mulsf3x
+                0x0000000000000cec                __mulsf3_pse
  .text.avr-libc.fplib
-                0x0000000000000d2c        0xc /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_inf.o)
-                0x0000000000000d2c                __fp_inf
+                0x0000000000000d96        0xc /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_inf.o)
+                0x0000000000000d96                __fp_inf
  .text.avr-libc.fplib
-                0x0000000000000d38        0x6 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_nan.o)
-                0x0000000000000d38                __fp_nan
+                0x0000000000000da2        0x6 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_nan.o)
+                0x0000000000000da2                __fp_nan
  .text.avr-libc.fplib
-                0x0000000000000d3e        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_pscA.o)
-                0x0000000000000d3e                __fp_pscA
+                0x0000000000000da8        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+                0x0000000000000da8                __fp_pscA
  .text.avr-libc.fplib
-                0x0000000000000d4c        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_pscB.o)
-                0x0000000000000d4c                __fp_pscB
+                0x0000000000000db6        0xe /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+                0x0000000000000db6                __fp_pscB
  .text.avr-libc.fplib
-                0x0000000000000d5a       0x22 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_round.o)
-                0x0000000000000d5a                __fp_round
-                0x0000000000000d7c                . = ALIGN (0x2)
+                0x0000000000000dc4       0x22 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr6/libm.a(fp_round.o)
+                0x0000000000000dc4                __fp_round
+                0x0000000000000de6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000d7c        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
-                0x0000000000000d7c                exit
-                0x0000000000000d7c                _exit
+ .fini9         0x0000000000000de6        0x0 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
+                0x0000000000000de6                exit
+                0x0000000000000de6                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -718,11 +724,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000d7c        0x4 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
+ .fini0         0x0000000000000de6        0x4 /usr/lib/gcc/avr/5.4.0/avr6/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000d80                _etext = .
+                0x0000000000000dea                _etext = .
 
-.data           0x0000000000800200       0x28 load address 0x0000000000000d80
+.data           0x0000000000800200       0x28 load address 0x0000000000000dea
                 0x0000000000800200                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -747,8 +753,8 @@ END GROUP
                 0x000000000080022a                led_state
  *(COMMON)
                 0x000000000080022b                PROVIDE (__bss_end, .)
-                0x0000000000000d80                __data_load_start = LOADADDR (.data)
-                0x0000000000000da8                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000000000000dea                __data_load_start = LOADADDR (.data)
+                0x0000000000000e12                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x000000000080022b        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)
@@ -776,18 +782,18 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000     0x15e4
+.stab           0x0000000000000000     0x1668
  *(.stab)
- .stab          0x0000000000000000      0x624 ./Timeout.o
-                                        0x654 (size before relaxing)
- .stab          0x0000000000000624      0x90c ./Timer.o
-                                        0xa50 (size before relaxing)
- .stab          0x0000000000000f30      0x6b4 ./main.o
+ .stab          0x0000000000000000      0x660 ./Timeout.o
+                                        0x6e4 (size before relaxing)
+ .stab          0x0000000000000660      0x954 ./Timer.o
+                                        0xa98 (size before relaxing)
+ .stab          0x0000000000000fb4      0x6b4 ./main.o
                                         0x6c0 (size before relaxing)
 
-.stabstr        0x0000000000000000     0x1532
+.stabstr        0x0000000000000000     0x15b3
  *(.stabstr)
- .stabstr       0x0000000000000000     0x1532 ./Timeout.o
+ .stabstr       0x0000000000000000     0x15b3 ./Timeout.o
 
 .stab.excl
  *(.stab.excl)
@@ -898,19 +904,22 @@ _ZN5Timer6udelayEy                                ./Timer.o
 _ZN5TimerC1Em                                     ./Timer.o
                                                   ./main.o
 _ZN5TimerC2Em                                     ./Timer.o
-_ZN7Timeout12checkTimeoutEv                       ./Timeout.o
+_ZN7Timeout7Timeout12checkTimeoutEv               ./Timeout.o
                                                   ./Timer.o
-_ZN7Timeout5eventEv                               ./Timeout.o
+_ZN7Timeout7Timeout5eventEv                       ./Timeout.o
                                                   ./Timer.o
-_ZN7Timeout6configEmPFvvE                         ./Timeout.o
+_ZN7Timeout7Timeout6configEmPFvvE                 ./Timeout.o
                                                   ./Timer.o
-_ZN7Timeout8callbackEv                            ./Timeout.o
+_ZN7Timeout7Timeout6enableEv                      ./Timeout.o
+_ZN7Timeout7Timeout7disableEv                     ./Timeout.o
+_ZN7Timeout7Timeout8callbackEv                    ./Timeout.o
                                                   ./Timer.o
-_ZN7TimeoutC1Ev                                   ./Timeout.o
+_ZN7Timeout7TimeoutC1Ev                           ./Timeout.o
                                                   ./Timer.o
-_ZN7TimeoutC2Ev                                   ./Timeout.o
-_ZN7TimeoutD1Ev                                   ./Timeout.o
-_ZN7TimeoutD2Ev                                   ./Timeout.o
+_ZN7Timeout7TimeoutC2Ev                           ./Timeout.o
+_ZN7Timeout7TimeoutD1Ev                           ./Timeout.o
+                                                  ./Timer.o
+_ZN7Timeout7TimeoutD2Ev                           ./Timeout.o
 _ZN9SingletonI5TimerE10_singletonE                ./Timer.o
 _ZN9SingletonI5TimerE4selfEv                      ./Timer.o
 _ZN9SingletonI5TimerEC1Ev                         ./Timer.o

@@ -6,22 +6,28 @@
  */
 
 #include "ExtInt.h"
-#include "Singleton.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdint.h>
 
-using namespace ExtInt;
+namespace EXT_INT {
 
-ExtInt::ExtInt(INT_ID_t id, ISC_t int_config, CALLBACK_t pcallback) {
+CALLBACK_t  ExtInt::_pcallback[8];
+
+ExtInt::ExtInt(uint8_t id, uint8_t int_config, CALLBACK_t pcallback) {
+	_id = id;
+	_pcallback[_id] = pcallback;
+
+	disable();
+
 	// Set config
-	if (id < INT4) {
-		EICRA |= int_config;
+	if (id < INT_4) {
+		EICRA |= (int_config << (_id*2));
 	} else {
-		EICRB |= int_config;
+		EICRB |= (int_config << ((_id-4)*2));
 	}
 
-	_id = id;
-	_pcallback = pcallback;
+	EIFR |= (1 << _id);
 }
 
 ExtInt::~ExtInt() {
@@ -29,7 +35,7 @@ ExtInt::~ExtInt() {
 }
 
 void ExtInt::enable() {
-	EIMSK |= 1 << _id;
+	EIMSK |= (1 << _id);
 }
 
 void ExtInt::disable() {
@@ -37,31 +43,39 @@ void ExtInt::disable() {
 }
 
 void ExtInt::callback(){
-	_pcallback();
+	(*_pcallback)();
 }
 
 ISR(INT0_vect) {
-	self()->ExtInt_singletons[0].callback();
+	ExtInt::vect_handler(0);
 }
 
 ISR(INT1_vect) {
+	ExtInt::vect_handler(1);
 }
 
 ISR(INT2_vect) {
+	ExtInt::vect_handler(2);
 }
 
 ISR(INT3_vect) {
+	ExtInt::vect_handler(3);
 }
 
 ISR(INT4_vect) {
+	ExtInt::vect_handler(4);
 }
 
 ISR(INT5_vect) {
+	ExtInt::vect_handler(5);
 }
 
 ISR(INT6_vect) {
+	ExtInt::vect_handler(6);
 }
 
 ISR(INT7_vect) {
+	ExtInt::vect_handler(7);
 }
 
+}

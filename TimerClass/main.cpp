@@ -17,7 +17,7 @@ int main(void) {
     DDRH |= (1 << DDH5);				// Set 1 to DDRH5 (PH5)
 
 	Timer timer = Timer(1000);
-	timer.addTimeout(1000, &toogle_led);
+	timer.addTimeout(2000, &toogle_led);
 	sei();
 
     while (true) {

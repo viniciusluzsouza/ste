@@ -8,14 +8,13 @@
 #ifndef EXTINT_H_
 #define EXTINT_H_
 
-#include "Singleton.h"
 #include <stdint.h>
 
-namespace ExtInt {
+namespace EXT_INT {
 
 typedef void (*CALLBACK_t)(void);
 
-class ExtInt : Singleton<ExtInt> {
+class ExtInt {
 public:
     enum ISC_t {
         LOW = 0,
@@ -25,26 +24,26 @@ public:
     };
 
     enum INT_ID_t {
-        INT0 = 0,
-        INT1 = 1,
-        INT2 = 2,
-        INT3 = 3,
-        INT4 = 4,
-        INT5 = 5,
-        INT6 = 6,
-        INT7 = 7
+        INT_0 = 0,
+        INT_1 = 1,
+        INT_2 = 2,
+        INT_3 = 3,
+        INT_4 = 4,
+        INT_5 = 5,
+        INT_6 = 6,
+        INT_7 = 7
     };
 
-    ExtInt(INT_ID_t id, ISC_t int_config, CALLBACK_t pcallback);
+    ExtInt(uint8_t id, uint8_t int_config, CALLBACK_t pcallback);
     ~ExtInt();
     void enable();
     void disable();
     void callback();
-    static ExtInt ExtInt_singletons[8];
+    static void vect_handler(uint8_t vect){ (ExtInt::_pcallback[vect])(); }
 
 private:
     uint8_t _id;
-    CALLBACK_t _pcallback;
+    static CALLBACK_t _pcallback[8];
 };
 
 }
