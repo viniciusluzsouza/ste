@@ -18,7 +18,7 @@ ExtInt::ExtInt(uint8_t id, uint8_t int_config, CALLBACK_t pcallback) {
 	_id = id;
 	_pcallback[_id] = pcallback;
 
-	disable();
+	EIMSK &= ~(1 << _id);	// disable to config
 
 	// Set config
 	if (id < INT_4) {
