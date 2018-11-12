@@ -12,7 +12,6 @@
 #include "Queue.h"
 
 UART::UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb, uint8_t double_speed)
-: _rx_buffer(8), _tx_buffer(8)
 {
     // Set baud rate
     UBRR0 = F_CPU/16/baud-1;
@@ -27,6 +26,8 @@ UART::UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb, uint8_t dou
     UCSR0A = (double_speed << U2X0);
 
     _new_data = 0;
+    _tx_buffer.clear();
+    _rx_buffer.clear();
 }
 
 UART::~UART() {
@@ -34,7 +35,7 @@ UART::~UART() {
 }
 
 void UART::put(uint8_t data) {
-	if (_tx_buffer.is_full()) return;
+	while (_tx_buffer.is_full());
 
     _tx_buffer.put(data);
     UCSR0B |= (1 << UDRIE0);
@@ -62,6 +63,7 @@ ISR(USART0_RX_vect)
 { UART::rxc_isr_handler(); }
 
 void UART::rxc_isr_handler() {
+	// Como receber toda string ??
 	if (self()->_rx_buffer.is_full()) return;
 
 	self()->_rx_buffer.put((uint8_t) UDR0);
@@ -73,5 +75,6 @@ ISR(USART0_UDRE_vect)
 
 void UART::udre_isr_handler() {
 	UDR0 = self()->_tx_buffer.get();
-    UCSR0B &= ~(1 << UDRIE0);
+	if (self()->_tx_buffer.is_empty())
+		UCSR0B &= ~(1 << UDRIE0);
 }

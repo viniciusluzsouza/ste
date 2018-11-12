@@ -1,10 +1,8 @@
 #include <avr/interrupt.h>
 #include "ExtInt.h"
 #include "UART.h"
-#include "InterruptManager.h"
 
-//using namespace EXT_INT;
-using namespace INT_MANAGER;
+using namespace EXT_INT;
 
 UART uart(19200, UART::EIGHT_DB, UART::NONE_PAR, UART::ONE_SB);
 
@@ -50,7 +48,7 @@ void int7_handler(void){
 
 int main( void ){
 
-//	ExtInt int0_obj(ExtInt::INT_0, ExtInt::FALLING, &int0_handler);
+	ExtInt int0_obj(ExtInt::INT_0, ExtInt::FALLING, &int0_handler);
 //	ExtInt int1_obj(ExtInt::INT_1, ExtInt::FALLING, &int1_handler);
 //	ExtInt int2_obj(ExtInt::INT_2, ExtInt::FALLING, &int2_handler);
 //	ExtInt int3_obj(ExtInt::INT_3, ExtInt::FALLING, &int3_handler);
@@ -59,7 +57,7 @@ int main( void ){
 //	ExtInt int6_obj(ExtInt::INT_6, ExtInt::FALLING, &int6_handler);
 //	ExtInt int7_obj(ExtInt::INT_7, ExtInt::FALLING, &int7_handler);
 //
-//	int0_obj.enable();
+	int0_obj.enable();
 //	int1_obj.enable();
 //	int2_obj.enable();
 //	int3_obj.enable();
@@ -67,9 +65,6 @@ int main( void ){
 //	int5_obj.enable();
 //	int6_obj.enable();
 //	int7_obj.enable();
-
-	InterruptManager int0_obj();
-	int0_obj.add_int(InterruptManager::INT_0, &int0_handler, InterruptManager::FALLING);
 
 	sei();
 	while(1){                                   /* forever */
@@ -79,5 +74,6 @@ int main( void ){
 		}
 	}
 
-	return 0;
+return 0;
+
 }

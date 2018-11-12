@@ -12,6 +12,8 @@
 #include "Singleton.h"
 #include "Queue.h"
 
+typedef Queue<uint8_t, 8> QUEUE_t;
+
 class UART : public Singleton<UART> {
 public:
     enum DataBits_t {
@@ -50,8 +52,8 @@ public:
 
 private:
     bool _new_data;
-    Queue<uint8_t> _rx_buffer;
-    Queue<uint8_t> _tx_buffer;
+    QUEUE_t _rx_buffer;
+    QUEUE_t _tx_buffer;
 };
 
 #endif /* UART_H_ */
