@@ -6,7 +6,7 @@
 
 int main(void) {
 
-    UART uart(19200, UART::EIGHT_DB, UART::NONE_PAR, UART::ONE_SB, UART::DS_ENABLE);
+    UART uart(57600, UART::EIGHT_DB, UART::NONE_PAR, UART::ONE_SB, UART::DS_DISABLE);
     sei();
 
     uint8_t input = 0x41;

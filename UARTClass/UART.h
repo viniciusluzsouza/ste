@@ -12,7 +12,7 @@
 #include "Singleton.h"
 #include "Queue.h"
 
-typedef Queue<uint8_t, 8> QUEUE_t;
+typedef Queue<uint8_t, 30> QUEUE_t;
 
 class UART : public Singleton<UART> {
 public:

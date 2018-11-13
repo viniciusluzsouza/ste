@@ -35,7 +35,8 @@ UART::~UART() {
 }
 
 void UART::put(uint8_t data) {
-	while (_tx_buffer.is_full());
+	//while (_tx_buffer.is_full());
+	if (_tx_buffer.is_full()) return;
 
     _tx_buffer.put(data);
     UCSR0B |= (1 << UDRIE0);
@@ -63,7 +64,6 @@ ISR(USART0_RX_vect)
 { UART::rxc_isr_handler(); }
 
 void UART::rxc_isr_handler() {
-	// Como receber toda string ??
 	if (self()->_rx_buffer.is_full()) return;
 
 	self()->_rx_buffer.put((uint8_t) UDR0);
