@@ -25,7 +25,6 @@ UART::UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb, uint8_t dou
     // Set double speed
     UCSR0A = (double_speed << U2X0);
 
-    _new_data = 0;
     _tx_buffer.clear();
     _rx_buffer.clear();
 }
@@ -35,8 +34,7 @@ UART::~UART() {
 }
 
 void UART::put(uint8_t data) {
-	//while (_tx_buffer.is_full());
-	if (_tx_buffer.is_full()) return;
+	while (_tx_buffer.is_full());
 
     _tx_buffer.put(data);
     UCSR0B |= (1 << UDRIE0);
@@ -47,16 +45,14 @@ void UART::puts(char* data) {
 }
 
 uint8_t UART::get() {
-	if (_rx_buffer.is_empty()) return 0;
+	while (_rx_buffer.is_empty());
 
 	uint8_t data = _rx_buffer.get();
-    if (_rx_buffer.is_empty()) _new_data = 0;
-
     return data;
 }
 
 bool UART::has_data( ) {
-    return _new_data;
+    return _rx_buffer.items();
 }
 
 // Interrupt Handlers
@@ -65,9 +61,7 @@ ISR(USART0_RX_vect)
 
 void UART::rxc_isr_handler() {
 	if (self()->_rx_buffer.is_full()) return;
-
 	self()->_rx_buffer.put((uint8_t) UDR0);
-    self()->_new_data = 1;
 }
 
 ISR(USART0_UDRE_vect)

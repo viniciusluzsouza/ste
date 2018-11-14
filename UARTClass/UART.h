@@ -51,7 +51,6 @@ public:
     static void udre_isr_handler();
 
 private:
-    bool _new_data;
     QUEUE_t _rx_buffer;
     QUEUE_t _tx_buffer;
 };
