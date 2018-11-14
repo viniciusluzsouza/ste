@@ -9,13 +9,12 @@
 #define PCINT_H_
 
 #include <stdint.h>
-#include "Singleton.h"
 
 namespace PCINT {
 
 typedef void (*CALLBACK_t)(void);
 
-class PCInt : public Singleton<PCInt> {
+class PCInt {
 public:
     enum PCINT_ID_t {
         PCINT_0 = 0, PCINT_1, PCINT_2, PCINT_3, PCINT_4, PCINT_5, PCINT_6, PCINT_7,
@@ -28,10 +27,12 @@ public:
     void enable(uint8_t id, CALLBACK_t callback);
     void disable(uint8_t id);
     void check_interrupts();
-    static void vect_handler(uint8_t id){ (self()->PCInt::_event[id]) = true; }
+
+    static void interrupt_handler(uint8_t id);
+    static uint8_t histories[3];
+    static uint8_t pcint_events[3];
 
 private:
-    bool _event[24];
     bool _enabled_interrupts[24];
     CALLBACK_t _callbacks[24];
     uint8_t _pcint_counter[3];
