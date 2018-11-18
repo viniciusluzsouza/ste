@@ -71,8 +71,9 @@ void PCInt::interrupt_handler(uint8_t id) {
 		pcint_events[0] = PINB ^ histories[0];
 		histories[0] = PINB;
 	} else if (id == 1) {
-		pcint_events[1] = PINJ ^ histories[1];
-		histories[1] = (PINJ << 1);
+		uint8_t aux = ((PINJ << 1)|(1 << 0)) & (0xFE | PINE);
+		pcint_events[1] = aux ^ histories[1];
+		histories[1] = aux;
 	} else if (id == 2) {
 		pcint_events[2] = PINK ^ histories[2];
 		histories[2] = PINK;

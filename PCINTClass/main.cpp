@@ -22,42 +22,48 @@ void int2_handler(void){
 	return;
 }
 
+void int3_handler(void){
+	uart.put('3');
+	return;
+}
+
+void int4_handler(void){
+	uart.put('4');
+	return;
+}
+
+void int5_handler(void){
+	uart.put('5');
+	return;
+}
+
+void int6_handler(void){
+	uart.put('6');
+	return;
+}
+
+void int7_handler(void){
+	uart.put('7');
+	return;
+}
+
 int main(void){
 
+	cli();
 	PCInt pcint;
 	pcint.enable(PCInt::PCINT_0, &int0_handler);
-	pcint.enable(PCInt::PCINT_1, &int0_handler);
-	pcint.enable(PCInt::PCINT_2, &int0_handler);
-	pcint.enable(PCInt::PCINT_3, &int0_handler);
-	pcint.enable(PCInt::PCINT_4, &int0_handler);
-	pcint.enable(PCInt::PCINT_5, &int0_handler);
-	pcint.enable(PCInt::PCINT_6, &int0_handler);
-	pcint.enable(PCInt::PCINT_7, &int0_handler);
-	pcint.enable(PCInt::PCINT_8, &int1_handler);
-	pcint.enable(PCInt::PCINT_9, &int1_handler);
-	pcint.enable(PCInt::PCINT_10, &int1_handler);
-	pcint.enable(PCInt::PCINT_11, &int1_handler);
-	pcint.enable(PCInt::PCINT_12, &int1_handler);
-	pcint.enable(PCInt::PCINT_13, &int1_handler);
-	pcint.enable(PCInt::PCINT_14, &int1_handler);
-	pcint.enable(PCInt::PCINT_15, &int1_handler);
-	pcint.enable(PCInt::PCINT_16, &int2_handler);
-	pcint.enable(PCInt::PCINT_17, &int2_handler);
-	pcint.enable(PCInt::PCINT_18, &int2_handler);
-	pcint.enable(PCInt::PCINT_19, &int2_handler);
-	pcint.enable(PCInt::PCINT_20, &int2_handler);
-	pcint.enable(PCInt::PCINT_21, &int2_handler);
-	pcint.enable(PCInt::PCINT_22, &int2_handler);
-	pcint.enable(PCInt::PCINT_23, &int2_handler);
-
-
+	pcint.enable(PCInt::PCINT_1, &int1_handler);
+	pcint.enable(PCInt::PCINT_2, &int2_handler);
+	pcint.enable(PCInt::PCINT_3, &int3_handler);
+	pcint.enable(PCInt::PCINT_4, &int4_handler);
+	pcint.enable(PCInt::PCINT_5, &int5_handler);
+	pcint.enable(PCInt::PCINT_6, &int6_handler);
+	pcint.enable(PCInt::PCINT_7, &int7_handler);
 
 	sei();
 	while(1){
 		if (uart.has_data()){
-			uart.put(uart.get());
-			uart.put((PCICR));
-			uart.put((PCMSK0));
+			uart.get();
 		}
 
 		_delay_ms(1000);
