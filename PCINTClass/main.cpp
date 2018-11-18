@@ -22,43 +22,14 @@ void int2_handler(void){
 	return;
 }
 
-void int3_handler(void){
-	uart.put('3');
-	return;
-}
-
-void int4_handler(void){
-	uart.put('4');
-	return;
-}
-
-void int5_handler(void){
-	uart.put('5');
-	return;
-}
-
-void int6_handler(void){
-	uart.put('6');
-	return;
-}
-
-void int7_handler(void){
-	uart.put('7');
-	return;
-}
-
 int main(void){
 
 	cli();
 	PCInt pcint;
-	pcint.enable(PCInt::PCINT_0, &int0_handler);
-	pcint.enable(PCInt::PCINT_1, &int1_handler);
-	pcint.enable(PCInt::PCINT_2, &int2_handler);
-	pcint.enable(PCInt::PCINT_3, &int3_handler);
-	pcint.enable(PCInt::PCINT_4, &int4_handler);
-	pcint.enable(PCInt::PCINT_5, &int5_handler);
-	pcint.enable(PCInt::PCINT_6, &int6_handler);
-	pcint.enable(PCInt::PCINT_7, &int7_handler);
+	pcint.enable(PCInt::PCINT_4, &int0_handler);
+	pcint.enable(PCInt::PCINT_9, &int1_handler);
+	pcint.enable(PCInt::PCINT_10, &int1_handler);
+	pcint.enable(PCInt::PCINT_16, &int2_handler);
 
 	sei();
 	while(1){
