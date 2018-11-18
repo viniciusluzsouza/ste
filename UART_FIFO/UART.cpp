@@ -34,7 +34,8 @@ UART::~UART() {
 }
 
 void UART::put(uint8_t data) {
-	while (_tx_buffer.is_full());
+	//while (_tx_buffer.is_full());
+	if (_tx_buffer.is_full()) return;
 
     _tx_buffer.put(data);
     UCSR0B |= (1 << UDRIE0);
@@ -45,7 +46,8 @@ void UART::puts(const char* data) {
 }
 
 uint8_t UART::get() {
-	while (_rx_buffer.is_empty());
+	//while (_rx_buffer.is_empty());
+	if (_rx_buffer.is_empty()) return 0;
 
 	uint8_t data = _rx_buffer.get();
     return data;
