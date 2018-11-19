@@ -10,6 +10,7 @@
 #include <avr/interrupt.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 
 namespace PCINT {
 
@@ -17,20 +18,18 @@ uint8_t PCInt::histories[3];
 uint8_t PCInt::pcint_events[3];
 
 PCInt::PCInt() {
-	memset(_enabled_interrupts, 0, 24 * sizeof(bool));
 	memset(_pcint_counter, 0, 3 * sizeof(uint8_t));
+	memset(pcint_events, 0, 3 * sizeof(uint8_t));
 
-	for(int i=0;i<3;i++) {
-		histories[i] = 0x00;
-		pcint_events[i] = 0x00;
-	}
+	histories[0] = PINB;
+	histories[1] = ((PINJ << 1)|(1 << 0)) & (0xFE | PINE);
+	histories[2] = PINK;
 }
 
 PCInt::~PCInt() {
 }
 
 void PCInt::enable(uint8_t id, CALLBACK_t callback) {
-	_enabled_interrupts[id] = true;
 	_callbacks[id] = callback;
 
 	uint8_t reg_id = id/8;
@@ -43,8 +42,6 @@ void PCInt::enable(uint8_t id, CALLBACK_t callback) {
 }
 
 void PCInt::disable(uint8_t id) {
-	_enabled_interrupts[id] = false;
-
 	uint8_t reg_id = id/8;
 	if (_pcint_counter[reg_id] == 0)
 		PCICR &= ~(1 << reg_id);
@@ -55,10 +52,12 @@ void PCInt::disable(uint8_t id) {
 }
 
 void PCInt::check_interrupts() {
+	div_t res;
 	for(int i=0;i<24;i++) {
-		if ( (_enabled_interrupts[i]) and (pcint_events[i/8] & (1 << (i%8))) ) {
-			pcint_events[i/8] &= ~(1 << (i%8));
-			(*_callbacks[i])(pcint_events[i/8]);
+		res = div(i, 8);
+		if (pcint_events[res.quot] & (1 << (res.rem)) ) {
+			pcint_events[res.quot] &= ~(1 << (res.rem));
+			(*_callbacks[i])();
 		}
 	}
 }
@@ -70,15 +69,16 @@ void PCInt::interrupt_handler(uint8_t id) {
 	uint8_t temp;
 	if (id == 0){
 		temp = PINB;
-		pcint_events[0] |= temp ^ histories[0];
+		pcint_events[0] |= (temp ^ histories[0]) & PCMSK0;
 		histories[0] = temp;
 	} else if (id == 1) {
-		uint8_t aux = ((PINJ << 1)|(1 << 0)) & (0xFE | PINE);
-		pcint_events[1] |= aux ^ histories[1];
-		histories[1] = aux;
+		temp = ((PINJ << 1)|(1 << 0)) & (0xFE | PINE);
+		pcint_events[1] |= (temp ^ histories[1]) & PCMSK1;
+		histories[1] = temp;
 	} else if (id == 2) {
-		pcint_events[2] |= PINK ^ histories[2];
-		histories[2] = PINK;
+		temp = PINK;
+		pcint_events[2] |= (PINK ^ histories[2]) & PCMSK2;
+		histories[2] = temp;
 	}
 }
 

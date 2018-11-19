@@ -12,7 +12,7 @@
 
 namespace PCINT {
 
-typedef void (*CALLBACK_t)(uint8_t x);
+typedef void (*CALLBACK_t)();
 
 class PCInt {
 public:
@@ -33,7 +33,6 @@ public:
     static uint8_t pcint_events[3];
 
 private:
-    bool _enabled_interrupts[24];
     CALLBACK_t _callbacks[24];
     uint8_t _pcint_counter[3];
 };
