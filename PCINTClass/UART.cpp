@@ -9,8 +9,10 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "Singleton.h"
+#include "Queue.h"
 
-UART::UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb) {
+UART::UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb, uint8_t double_speed)
+{
     // Set baud rate
     UBRR0 = F_CPU/16/baud-1;
 
@@ -20,10 +22,11 @@ UART::UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb) {
     // Set frame format (asynchronous mode)
     UCSR0C = par | sb | db;
 
-    _new_data = 0;
-    _rx_buffer = 0;
-    _tx_buffer = 0;
+    // Set double speed
+    UCSR0A = (double_speed << U2X0);
 
+    _tx_buffer.clear();
+    _rx_buffer.clear();
 }
 
 UART::~UART() {
@@ -31,17 +34,27 @@ UART::~UART() {
 }
 
 void UART::put(uint8_t data) {
-    this->_tx_buffer = data;
+	//while (_tx_buffer.is_full());
+	if (_tx_buffer.is_full()) return;
+
+    _tx_buffer.put(data);
     UCSR0B |= (1 << UDRIE0);
 }
 
+void UART::puts(const char* data) {
+    for (int i=0;data[i]!=0;i++) put(data[i]);
+}
+
 uint8_t UART::get() {
-    this->_new_data = 0;
-    return this->_rx_buffer;
+	//while (_rx_buffer.is_empty());
+	if (_rx_buffer.is_empty()) return 0;
+
+	uint8_t data = _rx_buffer.get();
+    return data;
 }
 
 bool UART::has_data( ) {
-    return this->_new_data;
+    return _rx_buffer.items();
 }
 
 // Interrupt Handlers
@@ -49,14 +62,15 @@ ISR(USART0_RX_vect)
 { UART::rxc_isr_handler(); }
 
 void UART::rxc_isr_handler() {
-    self()->_rx_buffer = UDR0;
-    self()->_new_data = 1;
+	if (self()->_rx_buffer.is_full()) return;
+	self()->_rx_buffer.put((uint8_t) UDR0);
 }
 
 ISR(USART0_UDRE_vect)
 { UART::udre_isr_handler(); }
 
 void UART::udre_isr_handler() {
-    UDR0 = self()->_tx_buffer;
-    UCSR0B &= ~(1 << UDRIE0);
+	UDR0 = self()->_tx_buffer.get();
+	if (self()->_tx_buffer.is_empty())
+		UCSR0B &= ~(1 << UDRIE0);
 }

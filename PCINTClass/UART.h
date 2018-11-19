@@ -8,8 +8,13 @@
 #ifndef UART_H_
 #define UART_H_
 
+#define F_CPU 16000000
+
 #include <stdint.h>
 #include "Singleton.h"
+#include "Queue.h"
+
+typedef Queue<uint8_t, 30> QUEUE_t;
 
 class UART : public Singleton<UART> {
 public:
@@ -31,9 +36,15 @@ public:
         TWO_SB = 8
     };
 
-    UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb);
+    enum DoubleSpeed_t {
+    	DS_ENABLE = 1,
+		DS_DISABLE = 0
+    };
+
+    UART(uint16_t baud, DataBits_t db, Parity_t par, StopBit_t sb, uint8_t double_speed=0);
     ~UART();
     void put(uint8_t data);
+    void puts(const char* data);
     uint8_t get();
     bool has_data();
 
@@ -42,9 +53,8 @@ public:
     static void udre_isr_handler();
 
 private:
-    bool _new_data;
-    uint8_t _rx_buffer;
-    uint8_t _tx_buffer;
+    QUEUE_t _rx_buffer;
+    QUEUE_t _tx_buffer;
 };
 
 #endif /* UART_H_ */

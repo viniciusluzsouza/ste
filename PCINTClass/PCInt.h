@@ -12,7 +12,7 @@
 
 namespace PCINT {
 
-typedef void (*CALLBACK_t)(void);
+typedef void (*CALLBACK_t)(uint8_t x);
 
 class PCInt {
 public:

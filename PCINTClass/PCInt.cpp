@@ -21,7 +21,7 @@ PCInt::PCInt() {
 	memset(_pcint_counter, 0, 3 * sizeof(uint8_t));
 
 	for(int i=0;i<3;i++) {
-		histories[i] = 0xFF;
+		histories[i] = 0x00;
 		pcint_events[i] = 0x00;
 	}
 }
@@ -57,8 +57,8 @@ void PCInt::disable(uint8_t id) {
 void PCInt::check_interrupts() {
 	for(int i=0;i<24;i++) {
 		if ( (_enabled_interrupts[i]) and (pcint_events[i/8] & (1 << (i%8))) ) {
-			(*_callbacks[i])();
 			pcint_events[i/8] &= ~(1 << (i%8));
+			(*_callbacks[i])(pcint_events[i/8]);
 		}
 	}
 }
@@ -67,15 +67,17 @@ ISR(PCINT0_vect) { PCInt::interrupt_handler(0); }
 ISR(PCINT1_vect) { PCInt::interrupt_handler(1); }
 ISR(PCINT2_vect) { PCInt::interrupt_handler(2); }
 void PCInt::interrupt_handler(uint8_t id) {
+	uint8_t temp;
 	if (id == 0){
-		pcint_events[0] = PINB ^ histories[0];
-		histories[0] = PINB;
+		temp = PINB;
+		pcint_events[0] |= temp ^ histories[0];
+		histories[0] = temp;
 	} else if (id == 1) {
 		uint8_t aux = ((PINJ << 1)|(1 << 0)) & (0xFE | PINE);
-		pcint_events[1] = aux ^ histories[1];
+		pcint_events[1] |= aux ^ histories[1];
 		histories[1] = aux;
 	} else if (id == 2) {
-		pcint_events[2] = PINK ^ histories[2];
+		pcint_events[2] |= PINK ^ histories[2];
 		histories[2] = PINK;
 	}
 }
