@@ -18,7 +18,6 @@ uint8_t PCInt::histories[3];
 uint8_t PCInt::pcint_events[3];
 
 PCInt::PCInt() {
-	memset(_pcint_counter, 0, 3 * sizeof(uint8_t));
 	memset(pcint_events, 0, 3 * sizeof(uint8_t));
 
 	histories[0] = PINB;
@@ -32,23 +31,37 @@ PCInt::~PCInt() {
 void PCInt::enable(uint8_t id, CALLBACK_t callback) {
 	_callbacks[id] = callback;
 
-	uint8_t reg_id = id/8;
-	if (_pcint_counter[reg_id] == 0)
-		PCICR |= (1 << reg_id);
-
-	if (id < 8) PCMSK0 |= (1 << id);
-	else if (id < 16) PCMSK1 |= (1 << (id-8));
-	else if (id < 24) PCMSK2 |= (1 << (id-16));
+	if (id < 8) {
+		if ( !(PCMSK0) )
+			PCICR |= (1 << PCIE0);
+		PCMSK0 |= (1 << id);
+	} else if (id < 16) {
+		if ( !(PCMSK1) )
+			PCICR |= (1 << PCIE1);
+		PCMSK1 |= (1 << (id-8));
+	}
+	else if (id < 24) {
+		if ( !(PCMSK2) )
+			PCICR |= (1 << PCIE2);
+		PCMSK2 |= (1 << (id-16));
+	}
 }
 
 void PCInt::disable(uint8_t id) {
-	uint8_t reg_id = id/8;
-	if (_pcint_counter[reg_id] == 0)
-		PCICR &= ~(1 << reg_id);
-
-	if (id < 8) PCMSK0 &= ~(1 << id);
-	else if (id < 16) PCMSK1 &= ~(1 << (id-8));
-	else if (id < 24) PCMSK2 &= ~(1 << (id-16));
+	if (id < 8) {
+		PCMSK0 &= ~(1 << id);
+		if ( !(PCMSK0) )
+			PCICR &= ~(1 << PCIE0);
+	} else if (id < 16) {
+		PCMSK1 &= ~(1 << (id-8));
+		if ( !(PCMSK1) )
+			PCICR &= ~(1 << PCIE1);
+	}
+	else if (id < 24) {
+		PCMSK2 &= ~(1 << (id-16));
+		if ( !(PCMSK2) )
+			PCICR &= ~(1 << PCIE2);
+	}
 }
 
 void PCInt::check_interrupts() {

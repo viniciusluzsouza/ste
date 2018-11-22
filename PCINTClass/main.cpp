@@ -34,16 +34,35 @@ int main(void){
 	pcint.enable(PCInt::PCINT_17, &int2_handler);
 
 	sei();
+	bool active = 0;
 	while(1){
 		if (uart.has_data()){
 			uart.get();
-//			uart.put(PCMSK0);
+//			uart.put(PCICR);
 //			uart.put(PCMSK1);
 //			uart.put(PCMSK2);
 		}
 
-		//_delay_ms(1000);
+		_delay_ms(2000);
 		pcint.check_interrupts();
+		if (active) {
+			pcint.enable(PCInt::PCINT_4, &int0_handler);
+			pcint.enable(PCInt::PCINT_5, &int0_handler);
+			pcint.enable(PCInt::PCINT_9, &int1_handler);
+			pcint.enable(PCInt::PCINT_10, &int1_handler);
+			pcint.enable(PCInt::PCINT_16, &int2_handler);
+			pcint.enable(PCInt::PCINT_17, &int2_handler);
+			active = 0;
+		} else {
+//			pcint.disable(PCInt::PCINT_4);
+			pcint.disable(PCInt::PCINT_5);
+//			pcint.disable(PCInt::PCINT_9);
+			pcint.disable(PCInt::PCINT_10);
+//			pcint.disable(PCInt::PCINT_16);
+			pcint.disable(PCInt::PCINT_17);
+			active = 1;
+		}
+
 	}
 
 	return 0;

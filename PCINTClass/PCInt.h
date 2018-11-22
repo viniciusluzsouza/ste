@@ -34,7 +34,6 @@ public:
 
 private:
     CALLBACK_t _callbacks[24];
-    uint8_t _pcint_counter[3];
 };
 
 }
