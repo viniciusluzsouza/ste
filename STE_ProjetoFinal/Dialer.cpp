@@ -34,11 +34,6 @@ void Dialer::dial() {
 	_hks.set(0);
 
 	for(int i=0;sequency[i]!=0;i++) {
-		if (cancel) {
-			cancel = false;
-			break;
-		}
-
 		int l, c;
 
 		switch (sequency[i]) {
@@ -107,6 +102,11 @@ void Dialer::dial() {
 			c = -1;
 		}
 
+		if (cancel) {
+			cancel = false;
+			break;
+		}
+
 		if (l<0 && c<0) continue;
 
 		_line[l].set(0);
@@ -119,7 +119,7 @@ void Dialer::dial() {
 		_delay_ms(500);
 		_line[l].set(1);
 		_column[c].set(1);
-
+		_delay_ms(500);
 	}
 
 	_delay_ms(500);
@@ -130,9 +130,16 @@ void Dialer::dial() {
 void Dialer::program() {
 	_uart.puts("Nova sequencia: \n");
 
-	_delay_ms(200);	// debounce?
+	_delay_ms(300);	// debounce?
 
-	while (!_program.get());
+	while (!_program.get()) {
+		if (cancel) {
+			cancel = false;
+			_uart.puts("\n");
+			return;
+		}
+	}
+
 
 	if (_uart.has_data()) {
 		char new_seq[16];
@@ -152,7 +159,7 @@ void Dialer::program() {
 	}
 
 	_uart.puts("Sequencia salva!\n");
-	_delay_ms(200); // debounce?
+	_delay_ms(300); // debounce?
 }
 
 void Dialer::execute() {

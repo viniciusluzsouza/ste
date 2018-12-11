@@ -13,8 +13,9 @@ int main(void) {
 	cli();
 
 	Dialer dialer = Dialer();
-	//EXT_INT::Ext_Int cancel_int(EXT_INT::Ext_Int::Int4, EXT_INT::Ext_Int::FALLING, &cancel_handler);
-	//cancel_int.enable();
+
+	EXT_INT::Ext_Int cancel_int(EXT_INT::Ext_Int::Int0, EXT_INT::Ext_Int::FALLING, &cancel_handler);
+	cancel_int.enable();
 
 	sei();
 
